@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milord | Official Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #08080a;
+            --bg-surface: #101115;
+            --bg-element: #16181f;
+            --border-color: #22252e;
+            --text-primary: #f3f4f6;
+            --text-secondary: #8c93a3;
+            --accent: #cfa830;
+            --accent-hover: #e0b83d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 32px;
+            background-color: rgba(8, 8, 10, 0.9);
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(16px);
+        }
+
+        .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 6px;
+        }
+
+        .nav-link {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            color: var(--text-primary);
+            background: var(--bg-surface);
+            border-color: var(--border-color);
+        }
+
+        .lang-selector {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 500;
+            padding: 7px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .lang-selector:focus {
+            border-color: var(--accent);
+        }
+
+        main {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 24px 60px;
+            min-height: 100vh;
+        }
+
+        main.active {
+            display: block;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        @media (min-width: 992px) {
+            .grid-container {
+                grid-template-columns: 400px 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .panel h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 640px) {
+            .video-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: #000;
+            cursor: pointer;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-thumbnail-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .video-wrapper:hover .video-thumbnail-overlay {
+            transform: scale(1.02);
+        }
+
+        .video-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.45);
+            transition: background 0.3s ease;
+            z-index: 1;
+        }
+
+        .video-wrapper:hover::after {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .play-button {
+            position: relative;
+            z-index: 2;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .play-button svg {
+            fill: #fff;
+            width: 16px;
+            height: 16px;
+            margin-left: 2px;
+        }
+
+        .video-wrapper:hover .play-button {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .pricing-grid {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin-top: 50px;
+        }
+
+        @media (min-width: 768px) {
+            .pricing-grid {
+                flex-direction: row;
+                align-items: stretch;
+            }
+        }
+
+        .pricing-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 44px 36px;
+            width: 100%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .pricing-card.highlighted {
+            border-color: var(--accent);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(207, 168, 48, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .pricing-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .price-text {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .price-text span {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .perks-list {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .perks-list li {
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .perks-list li::before {
+            content: "•";
+            color: var(--accent);
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .button {
+            background: var(--text-primary);
+            color: var(--bg-base);
+            border: none;
+            padding: 12px 18px;
+            border-radius: 4px;
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .button:hover {
+            background: var(--accent);
+            color: var(--bg-base);
+        }
+
+        .pricing-card.highlighted .button {
+            background: var(--accent);
+            color: var(--bg-base);
+        }
+
+        .pricing-card.highlighted .button:hover {
+            background: var(--text-primary);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-body {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 28px;
+            width: 90%;
+            max-width: 440px;
+            position: relative;
+            transform: scale(0.97);
+            transition: transform 0.25s ease;
+        }
+
+        .modal-overlay.open .modal-body {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .modal-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .modal-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .modal-tab {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            text-align: center;
+        }
+
+        .modal-tab.active {
+            color: var(--text-primary);
+            border-bottom-color: var(--accent);
+        }
+
+        .pane {
+            display: none;
+        }
+
+        .pane.active {
+            display: block;
+        }
+
+        .crypto-notice {
+            text-align: center;
+            padding: 30px 15px;
+            border: 1px dashed var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-element);
+        }
+
+        .crypto-badge {
+            display: inline-block;
+            background: rgba(207, 168, 48, 0.1);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .crypto-text {
+            color: var(--text-secondary);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-base);
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .footer-nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .footer-nav a:hover {
+            color: var(--accent);
+        }
+
+        .legal {
+            font-size: 11px;
+            color: #3b3d45;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="brand" onclick="switchSection('music')">Milord</a>
+        <div class="header-right">
+            <div class="navigation">
+                <button class="nav-link active" id="btn-nav-music" onclick="switchSection('music')" data-i18n="nav_music">Music</button>
+                <button class="nav-link" id="btn-nav-app" onclick="switchSection('app')" data-i18n="nav_app">The App</button>
+            </div>
+            
+            <select class="lang-selector" onchange="changeLanguage(this.value)">
+                <option value="en">English</option>
+                <option value="ro">Română</option>
+                <option value="es">Español</option>
+            </select>
+        </div>
+    </header>
+
+    <main id="music" class="active">
+        <div class="hero">
+            <h1>Milord</h1>
+            <p data-i18n="music_hero_sub">Official releases and music videos</p>
+        </div>
+
+        <div class="grid-container">
+            <div class="panel">
+                <h2 data-i18n="panel_spotify">Official Discography</h2>
+                <iframe src="https://open.spotify.com/embed/artist/2kp1SA5yxRFRLOLStT88yG?utm_source=generator&theme=0" 
+                        width="100%" 
+                        height="480" 
+                        frameBorder="0" 
+                        allowfullscreen="" 
+                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                        loading="lazy">
+                </iframe>
+            </div>
+
+            <div class="panel">
+                <h2 data-i18n="panel_youtube">Latest Music Videos</h2>
+                <div class="video-grid">
+                    <div class="video-wrapper" onclick="loadVideo(this, 'QYZiMN6LAPA')">
+                        <div class="video-thumbnail-overlay" style="background-image: url('https://img.youtube.com/vi/QYZiMN6LAPA/hqdefault.jpg');"></div>
+                        <div class="play-button">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                    <div class="video-wrapper" onclick="loadVideo(this, 'l2ErpUmW3H0')">
+                        <div class="video-thumbnail-overlay" style="background-image: url('https://img.youtube.com/vi/l2ErpUmW3H0/hqdefault.jpg');"></div>
+                        <div class="play-button">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                    <div class="video-wrapper" onclick="loadVideo(this, 'Q2kKl2ZK6Lg')">
+                        <div class="video-thumbnail-overlay" style="background-image: url('https://img.youtube.com/vi/Q2kKl2ZK6Lg/hqdefault.jpg');"></div>
+                        <div class="play-button">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                    <div class="video-wrapper" onclick="loadVideo(this, 'YZFb3E2A35o')">
+                        <div class="video-thumbnail-overlay" style="background-image: url('https://img.youtube.com/vi/YZFb3E2A35o/hqdefault.jpg');"></div>
+                        <div class="play-button">
+                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <main id="app">
+        <div class="hero">
+            <h1 data-i18n="app_hero_title">The Milord Studio</h1>
+            <p data-i18n="app_hero_sub">Your pocket studio. Edit tracks, adjust stems, apply studio filters, and export high-fidelity audio.</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div>
+                    <h3 data-i18n="tier_monthly_title">Monthly Pass</h3>
+                    <div class="price-text">$2 <span data-i18n="unit_monthly">/ mo</span></div>
+                    <ul class="perks-list">
+                        <li data-i18n="p_m_1">Monthly Access</li>
+                        <li data-i18n="p_m_2">All features</li>
+                    </ul>
+                </div>
+                <button class="button" data-i18n="btn_sub" onclick="triggerPayment('Monthly Pass', '$2 / month')">Subscribe</button>
+            </div>
+
+            <div class="pricing-card highlighted">
+                <span class="pricing-badge" data-i18n="badge_value">Best Value</span>
+                <div>
+                    <h3 data-i18n="tier_yearly_title">Annual Pass</h3>
+                    <div class="price-text">$20 <span data-i18n="unit_yearly">/ yr</span></div>
+                    <ul class="perks-list">
+                        <li data-i18n="p_y_1">Yearly Access</li>
+                        <li data-i18n="p_y_2">All features</li>
+                    </ul>
+                </div>
+                <button class="button" data-i18n="btn_sub" onclick="triggerPayment('Annual Pass', '$20 / year')">Subscribe</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="checkout-window" onclick="outerModalClose(event)">
+        <div class="modal-body">
+            <button class="modal-close" onclick="dismissCheckout()">&times;</button>
+            
+            <div id="checkout-form-container">
+                <div class="modal-title" id="checkout-plan-name">Subscription Setup</div>
+                <div class="modal-subtitle" id="checkout-plan-price">$2.00 / month</div>
+
+                <div class="modal-tabs">
+                    <button class="modal-tab active" id="tab-card" onclick="togglePaymentMode('card')" data-i18n="pay_method_card">Credit Card</button>
+                    <button class="modal-tab" id="tab-crypto" onclick="togglePaymentMode('crypto')" data-i18n="pay_method_crypto">Crypto</button>
+                </div>
+
+                <!-- Credit Card Coming Soon panel -->
+                <div class="pane active" id="pane-card">
+                    <div class="crypto-notice">
+                        <span class="crypto-badge" data-i18n="badge_soon">Coming Soon</span>
+                        <p class="crypto-text" data-i18n="card_desc">Direct credit card payments are currently being configured. Card processor integration is scheduled to launch shortly.</p>
+                    </div>
+                </div>
+
+                <!-- Crypto Coming Soon panel -->
+                <div class="pane" id="pane-crypto">
+                    <div class="crypto-notice">
+                        <span class="crypto-badge" data-i18n="badge_soon">Coming Soon</span>
+                        <p class="crypto-text" data-i18n="crypto_desc">Direct blockchain payment channels are being established. Support for BTC, ETH, and SOL is scheduled to arrive shortly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-nav">
+            <a href="https://open.spotify.com/artist/2kp1SA5yxRFRLOLStT88yG?si=1YTUdoMRRhyPJs4Y0ue7Ew&utm_source=copy-link" target="_blank" rel="noopener">Spotify</a>
+            <a href="https://youtube.com/@milord-oficial?si=S_DaizGsJ0sXTC_3" target="_blank" rel="noopener">YouTube</a>
+            <a href="https://www.tiktok.com/@ciprianbochismilord?_r=1&_t=ZN-9874FhgJ9hW" target="_blank" rel="noopener">TikTok</a>
+        </div>
+        <div class="legal">
+            &copy; 2026 Milord. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            en: {
+                nav_music: "Music",
+                nav_app: "The App",
+                music_hero_sub: "Official releases and music videos",
+                panel_spotify: "Official Discography",
+                panel_youtube: "Latest Music Videos",
+                app_hero_title: "The Milord Studio",
+                app_hero_sub: "Your pocket studio. Edit tracks, adjust stems, apply studio filters, and export high-fidelity audio.",
+                tier_monthly_title: "Monthly Pass",
+                unit_monthly: "/ mo",
+                tier_yearly_title: "Annual Pass",
+                unit_yearly: "/ yr",
+                badge_value: "Best Value",
+                p_m_1: "Monthly Access",
+                p_m_2: "All features",
+                p_y_1: "Yearly Access",
+                p_y_2: "All features",
+                btn_sub: "Subscribe",
+                pay_method_card: "Credit Card",
+                pay_method_crypto: "Crypto",
+                badge_soon: "Coming Soon",
+                card_desc: "Direct credit card payments are currently being configured. Card processor integration is scheduled to launch shortly.",
+                crypto_desc: "Direct blockchain payment channels are being established. Support for BTC, ETH, and SOL is scheduled to arrive shortly."
+            },
+            ro: {
+                nav_music: "Muzică",
+                nav_app: "Aplicația",
+                music_hero_sub: "Lansări oficiale și videoclipuri",
+                panel_spotify: "Discografie Oficială",
+                panel_youtube: "Cele Mai Noi Videoclipuri",
+                app_hero_title: "Studioul Milord",
+                app_hero_sub: "Studioul tău de buzunar. Editează piese, ajustează stem-uri, aplică filtre de studio și exportă audio de înaltă fidelitate.",
+                tier_monthly_title: "Abonament Lunar",
+                unit_monthly: "/ lună",
+                tier_yearly_title: "Abonament Anual",
+                unit_yearly: "/ an",
+                badge_value: "Cea mai bună ofertă",
+                p_m_1: "Acces lunar",
+                p_m_2: "Toate funcțiile",
+                p_y_1: "Acces anual",
+                p_y_2: "Toate funcțiile",
+                btn_sub: "Abonează-te",
+                pay_method_card: "Card de Credit",
+                pay_method_crypto: "Cripto",
+                badge_soon: "În Curând",
+                card_desc: "Plățile directe prin card de credit sunt în curs de configurare. Integrarea procesatorului de carduri va fi lansată în curând.",
+                crypto_desc: "Canalele directe de plată blockchain sunt în curs de stabilire. Suportul pentru BTC, ETH și SOL va fi disponibil în curând."
+            },
+            es: {
+                nav_music: "Música",
+                nav_app: "La App",
+                music_hero_sub: "Lanzamientos oficiales y videos musicales",
+                panel_spotify: "Discografía Oficial",
+                panel_youtube: "Últimos Videos Musicales",
+                app_hero_title: "El Estudio Milord",
+                app_hero_sub: "Tu estudio de bolsillo. Edita pistas, ajusta canales individuales, aplica filtros de estudio y exportar audio de alta fidelidad.",
+                tier_monthly_title: "Pase Mensual",
+                unit_monthly: "/ mes",
+                tier_yearly_title: "Pase Anual",
+                unit_yearly: "/ año",
+                badge_value: "Mejor Valor",
+                p_m_1: "Acceso mensual",
+                p_m_2: "Todas las funciones",
+                p_y_1: "Acceso anual",
+                p_y_2: "Todas las funciones",
+                btn_sub: "Suscribirse",
+                pay_method_card: "Tarjeta de Crédito",
+                pay_method_crypto: "Cripto",
+                badge_soon: "Próximamente",
+                card_desc: "Los pagos directos con tarjeta de crédito se están configurando. La integración del procesador de tarjetas se lanzará pronto.",
+                crypto_desc: "Se están habilitando canales de pago directo mediante blockchain. El soporte para BTC, ETH y SOL estará disponible pronto."
+            }
+        };
+
+        let currentLang = 'en';
+
+        function changeLanguage(langCode) {
+            currentLang = langCode;
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const translationKey = element.getAttribute('data-i18n');
+                if (translations[langCode] && translations[langCode][translationKey]) {
+                    element.innerText = translations[langCode][translationKey];
+                }
+            });
+        }
+
+        function switchSection(targetId) {
+            document.querySelectorAll('main').forEach(section => section.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+
+            document.getElementById(targetId).classList.add('active');
+            
+            if (targetId === 'music') {
+                document.getElementById('btn-nav-music').classList.add('active');
+            } else {
+                document.getElementById('btn-nav-app').classList.add('active');
+            }
+        }
+
+        function loadVideo(container, videoId) {
+            container.innerHTML = `
+                <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin" 
+                        allowfullscreen>
+                </iframe>`;
+        }
+
+        function triggerPayment(planName, priceTag) {
+            document.getElementById('checkout-plan-name').innerText = planName;
+            document.getElementById('checkout-plan-price').innerText = priceTag;
+            togglePaymentMode('card');
+
+            document.getElementById('checkout-window').classList.add('open');
+        }
+
+        function dismissCheckout() {
+            document.getElementById('checkout-window').classList.remove('open');
+        }
+
+        function outerModalClose(e) {
+            if (e.target.id === 'checkout-window') {
+                dismissCheckout();
+            }
+        }
+
+        function togglePaymentMode(mode) {
+            const cardTab = document.getElementById('tab-card');
+            const cryptoTab = document.getElementById('tab-crypto');
+            const cardPane = document.getElementById('pane-card');
+            const cryptoPane = document.getElementById('pane-crypto');
+
+            if (mode === 'card') {
+                cardTab.classList.add('active');
+                cryptoTab.classList.remove('active');
+                cardPane.classList.add('active');
+                cryptoPane.classList.remove('active');
+            } else {
+                cardTab.classList.remove('active');
+                cryptoTab.classList.add('active');
+                cardPane.classList.remove('active');
+                cryptoPane.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
+
