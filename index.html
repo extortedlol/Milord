@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milord | Official Platform</title>
+    <title>milord | Official Platform</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -54,12 +54,13 @@
             font-size: 24px;
             font-weight: 800;
             letter-spacing: 2.5px;
-            text-transform: uppercase;
+            text-transform: lowercase;
             text-decoration: none;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(207, 168, 48, 0.2);
+            text-shadow: 0 0 30px rgba(207, 168, 48, 0.3);
+            display: inline-block;
         }
 
         .header-right {
@@ -138,18 +139,19 @@
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-transform: lowercase;
         }
 
         .hero p {
             font-size: 16px;
             font-weight: 600;
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
             letter-spacing: 0.5px;
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
         .grid-container {
@@ -160,7 +162,7 @@
 
         @media (min-width: 992px) {
             .grid-container {
-                grid-template-columns: 420px 1fr;
+                grid-template-columns: 440px 1fr;
             }
         }
 
@@ -172,18 +174,87 @@
             margin-bottom: 24px;
         }
 
+        .panel.panel-highlight {
+            border: 1px solid var(--accent);
+            box-shadow: 0 0 15px rgba(207, 168, 48, 0.05);
+        }
+
         .panel h2 {
             font-family: 'Playfair Display', serif;
             font-size: 19px;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             letter-spacing: 0.5px;
+            color: var(--text-primary);
+            display: inline-block;
+        }
+
+        .panel.panel-highlight h2 {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-para {
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        /* Contact Details Card */
+        .contact-box {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--bg-element);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.25s ease;
+            margin-top: 12px;
+        }
+
+        .contact-box:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            background: rgba(207, 168, 48, 0.02);
+        }
+
+        .contact-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+        }
+
+        .contact-text-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-email-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .contact-email-address {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--text-primary);
+            margin-top: 2px;
         }
 
         .video-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 16px;
+            gap: 20px;
         }
 
         @media (min-width: 640px) {
@@ -192,24 +263,27 @@
             }
         }
 
-        .video-wrapper {
+        .video-card-link {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            background: var(--bg-element);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.25s ease, border-color 0.25s ease;
+        }
+
+        .video-card-link:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .video-thumbnail-container {
             position: relative;
             padding-bottom: 56.25%;
             height: 0;
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
             background: #000;
-            cursor: pointer;
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
         }
 
         .video-thumbnail-overlay {
@@ -223,35 +297,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease;
         }
 
-        .video-wrapper:hover .video-thumbnail-overlay {
-            transform: scale(1.02);
-        }
-
-        .video-wrapper::after {
+        .video-thumbnail-container::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.45);
+            background: rgba(0, 0, 0, 0.4);
             transition: background 0.3s ease;
             z-index: 1;
         }
 
-        .video-wrapper:hover::after {
-            background: rgba(0, 0, 0, 0.3);
+        .video-card-link:hover .video-thumbnail-container::after {
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .play-button {
             position: relative;
             z-index: 2;
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 0, 0, 0.8);
+            width: 48px;
+            height: 48px;
+            background: rgba(0, 0, 0, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             display: flex;
@@ -262,15 +331,31 @@
 
         .play-button svg {
             fill: #fff;
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             margin-left: 2px;
         }
 
-        .video-wrapper:hover .play-button {
+        .video-card-link:hover .play-button {
             background: var(--accent);
             border-color: var(--accent);
             transform: scale(1.1);
+        }
+
+        .youtube-direct-link {
+            display: block;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            padding: 12px;
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-color);
+            transition: color 0.2s ease;
+        }
+
+        .video-card-link:hover .youtube-direct-link {
+            color: var(--accent);
         }
 
         .social-grid {
@@ -330,6 +415,56 @@
             margin-top: 2px;
         }
 
+        /* WhatsApp-Style Media Gallery */
+        .preview-section {
+            margin: 40px auto 60px;
+            max-width: 1000px;
+        }
+
+        .preview-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .wa-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            background: var(--bg-surface);
+            padding: 6px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .wa-gallery-item {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border-radius: 6px;
+            background: var(--bg-element);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wa-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .wa-gallery-item img:hover {
+            transform: scale(1.03);
+        }
+
         .store-notice {
             max-width: 500px;
             margin: 0 auto 40px;
@@ -351,6 +486,11 @@
             display: flex;
             align-items: center;
             color: var(--accent);
+        }
+
+        .store-notice svg {
+            width: 20px;
+            height: 20px;
         }
 
         .pricing-grid {
@@ -460,7 +600,7 @@
 <body>
 
     <header>
-        <a href="#" class="brand" onclick="switchSection('music')">Milord</a>
+        <a href="#" class="brand" onclick="switchSection('music')">milord</a>
         <div class="header-right">
             <div class="navigation">
                 <button class="nav-link active" id="btn-nav-music" onclick="switchSection('music')" data-i18n="nav_music">Music</button>
@@ -477,17 +617,46 @@
 
     <main id="music" class="active">
         <div class="hero">
-            <h1>Milord</h1>
+            <h1>milord</h1>
             <p data-i18n="music_hero_sub">Official releases and music videos</p>
         </div>
 
         <div class="grid-container">
             <div>
+                <!-- Sectiunea About -->
+                <div class="panel">
+                    <h2 data-i18n="panel_about">About milord</h2>
+                    <p class="about-para" id="about-content" data-i18n="about_text">
+                        My original songs, written, composed, and created by me. The lyrics and melodies are my own, brought to life with the help of AI. Perfect for a drive and turning up the volume. 🎵
+                    </p>
+                </div>
+
+                <!-- Sectiunea Contact Dedicata (Highlight) -->
+                <div class="panel panel-highlight">
+                    <h2 data-i18n="panel_contact">Contact & Collabs</h2>
+                    <p class="about-para" data-i18n="contact_desc">
+                        For support, collaborations, business inquiries, or just to say hi, reach out directly via email:
+                    </p>
+                    <a href="mailto:support@milord.cc" class="contact-box">
+                        <div class="contact-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                            </svg>
+                        </div>
+                        <div class="contact-text-wrapper">
+                            <span class="contact-email-label" data-i18n="contact_email_label">Official Email</span>
+                            <span class="contact-email-address">support@milord.cc</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Sectiunea Spotify -->
                 <div class="panel">
                     <h2 data-i18n="panel_spotify">Official Discography</h2>
                     <iframe src="https://open.spotify.com/embed/artist/2kp1SA5yxRFRLOLStT88yG?utm_source=generator&theme=0" 
                             width="100%" 
-                            height="400" 
+                            height="380" 
                             frameBorder="0" 
                             allowfullscreen="" 
                             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
@@ -495,6 +664,7 @@
                     </iframe>
                 </div>
 
+                <!-- Sectiunea Social Media -->
                 <div class="panel">
                     <h2 data-i18n="panel_connect">See my other socials</h2>
                     <div class="social-grid">
@@ -539,33 +709,34 @@
                 </div>
             </div>
 
+            <!-- Listă curată de videoclipuri -->
             <div class="panel">
                 <h2 data-i18n="panel_youtube">Latest Music Videos</h2>
                 <div class="video-grid">
-                    <div class="video-wrapper" onclick="loadVideo(this, 'QYZiMN6LAPA')">
-                        <div class="video-thumbnail-overlay" style="background-image: url('https://img.youtube.com/vi/QYZiMN6LAPA/hqdefault.jpg');"></div>
-                        <div class="play-button">
-                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <a href="https://youtube.com/watch?v=QYZiMN6LAPA" target="_blank" rel="noopener" class="video-card-link">
+                        <div class="video-thumbnail-container">
+                            <div class="video-thumbnail-overlay" style="background-image: url('https://img.youtube.com/vi/QYZiMN6LAPA/hqdefault.jpg');"></div>
                         </div>
-                    </div>
-                    <div class="video-wrapper" onclick="loadVideo(this, 'l2ErpUmW3H0')">
-                        <div class="video-thumbnail-overlay" style="background-image: url('https://img.youtube.com/vi/l2ErpUmW3H0/hqdefault.jpg');"></div>
-                        <div class="play-button">
-                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span class="youtube-direct-link" data-i18n="open_youtube">Watch on YouTube</span>
+                    </a>
+                    <a href="https://youtube.com/watch?v=l2ErpUmW3H0" target="_blank" rel="noopener" class="video-card-link">
+                        <div class="video-thumbnail-container">
+                            <div class="video-thumbnail-overlay" style="background-image: url('https://img.youtube.com/vi/l2ErpUmW3H0/hqdefault.jpg');"></div>
                         </div>
-                    </div>
-                    <div class="video-wrapper" onclick="loadVideo(this, 'Q2kKl2ZK6Lg')">
-                        <div class="video-thumbnail-overlay" style="background-image: url('https://img.youtube.com/vi/Q2kKl2ZK6Lg/hqdefault.jpg');"></div>
-                        <div class="play-button">
-                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span class="youtube-direct-link" data-i18n="open_youtube">Watch on YouTube</span>
+                    </a>
+                    <a href="https://youtube.com/watch?v=Q2kKl2ZK6Lg" target="_blank" rel="noopener" class="video-card-link">
+                        <div class="video-thumbnail-container">
+                            <div class="video-thumbnail-overlay" style="background-image: url('https://img.youtube.com/vi/Q2kKl2ZK6Lg/hqdefault.jpg');"></div>
                         </div>
-                    </div>
-                    <div class="video-wrapper" onclick="loadVideo(this, 'YZFb3E2A35o')">
-                        <div class="video-thumbnail-overlay" style="background-image: url('https://img.youtube.com/vi/YZFb3E2A35o/hqdefault.jpg');"></div>
-                        <div class="play-button">
-                            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span class="youtube-direct-link" data-i18n="open_youtube">Watch on YouTube</span>
+                    </a>
+                    <a href="https://youtube.com/watch?v=YZFb3E2A35o" target="_blank" rel="noopener" class="video-card-link">
+                        <div class="video-thumbnail-container">
+                            <div class="video-thumbnail-overlay" style="background-image: url('https://img.youtube.com/vi/YZFb3E2A35o/hqdefault.jpg');"></div>
                         </div>
-                    </div>
+                        <span class="youtube-direct-link" data-i18n="open_youtube">Watch on YouTube</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -573,21 +744,41 @@
 
     <main id="app">
         <div class="hero">
-            <h1 data-i18n="app_hero_title">The Milord Studio</h1>
-            <p data-i18n="app_hero_sub">Your pocket studio. Edit tracks, adjust stems, apply studio filters, and export high-fidelity audio.</p>
+            <h1 data-i18n="app_hero_title">the milord studio</h1>
+            <p data-i18n="app_hero_sub">Milord Audio Studio is a powerful mobile music editor for creators. Mix multiple tracks, cut and duplicate audio, record vocals, adjust tempo and effects, and export high-quality MP3 or WAV files—all directly from your phone.</p>
         </div>
 
+        <!-- Google Play Store Notice -->
         <div class="store-notice">
             <div class="store-icon-wrapper">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="5 3 19 12 5 21 5 3"/>
-                    <line x1="5" y1="3" x2="12" y2="12"/>
-                    <line x1="5" y1="21" x2="12" y2="12"/>
-                    <line x1="5" y1="12" x2="19" y2="12"/>
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3.25 2.3c-.15.24-.25.57-.25.95v17.5c0 .38.1.71.25.95l.1.1 10.1-10.1v-.2L3.35 2.2l-.1.1z"/>
+                    <path d="M16.85 15.9l-3.3-3.3v-.2l3.3-3.3.1.05 3.9 2.2c1.1.6 1.1 1.6 0 2.2l-3.9 2.2-.1.15z"/>
+                    <path d="M13.55 12.4l-10.1 10.1c.33.1.76.05 1.17-.2l12.2-6.9-3.27-3z"/>
+                    <path d="M13.55 11.6l3.27-3-12.2-6.9c-.4-.25-.84-.3-1.17-.2l10.1 10.1z"/>
                 </svg>
             </div>
             <span style="margin-left: 8px;" data-i18n="google_play_soon">Coming to Google Play soon</span>
         </div>
+
+        <!-- WhatsApp Style Image Gallery -->
+        <section class="preview-section">
+            <h2 data-i18n="app_preview_title">Interface Preview</h2>
+            <div class="wa-gallery">
+                <div class="wa-gallery-item">
+                    <img src="1.png" alt="Preview 1" onerror="handleImageError(this, 1)">
+                </div>
+                <div class="wa-gallery-item">
+                    <img src="2.png" alt="Preview 2" onerror="handleImageError(this, 2)">
+                </div>
+                <div class="wa-gallery-item">
+                    <img src="3.png" alt="Preview 3" onerror="handleImageError(this, 3)">
+                </div>
+                <div class="wa-gallery-item">
+                    <img src="4.png" alt="Preview 4" onerror="handleImageError(this, 4)">
+                </div>
+            </div>
+        </section>
 
         <div class="pricing-grid">
             <div class="pricing-card">
@@ -617,7 +808,7 @@
 
     <footer>
         <div class="legal">
-            &copy; 2026 Milord. All rights reserved.
+            &copy; 2026 milord. All rights reserved.
         </div>
     </footer>
 
@@ -630,11 +821,18 @@
                 panel_spotify: "Official Discography",
                 panel_youtube: "Latest Music Videos",
                 panel_connect: "See my other socials",
+                panel_about: "About milord",
+                panel_contact: "Contact & Collabs",
+                contact_desc: "For support, collaborations, business inquiries, or just to say hi, reach out directly via email:",
+                contact_email_label: "Official Email",
+                about_text: "My original songs, written, composed, and created by me. The lyrics and melodies are my own, brought to life with the help of AI. Perfect for a drive and turning up the volume. 🎵",
                 social_listen: "Listen Now",
                 social_subscribe: "Subscribe",
                 social_follow: "Follow",
-                app_hero_title: "The Milord Studio",
-                app_hero_sub: "Your pocket studio. Edit tracks, adjust stems, apply studio filters, and export high-fidelity audio.",
+                open_youtube: "Watch on YouTube",
+                app_hero_title: "the milord studio",
+                app_hero_sub: "Milord Audio Studio is a powerful mobile music editor for creators. Mix multiple tracks, cut and duplicate audio, record vocals, adjust tempo and effects, and export high-quality MP3 or WAV files—all directly from your phone.",
+                app_preview_title: "Interface Preview",
                 tier_monthly_title: "Monthly Pass",
                 unit_monthly: "/ mo",
                 tier_yearly_title: "Annual Pass",
@@ -653,11 +851,18 @@
                 panel_spotify: "Discografie Oficială",
                 panel_youtube: "Cele Mai Noi Videoclipuri",
                 panel_connect: "Vezi rețelele mele sociale",
+                panel_about: "Despre milord",
+                panel_contact: "Contact și Colaborări",
+                contact_desc: "Pentru suport, colaborări, propuneri de afaceri sau pur și simplu pentru a saluta, trimite un mesaj direct la:",
+                contact_email_label: "Email Oficial",
+                about_text: "Melodii și videoclipuri originale create de mine. Versuri, linii melodice, voce și chitară proprii, aduse la viață cu ajutorul inteligenței artificiale. Unele piese sunt noi, altele au fost scrise cu ani în urmă dar fără AI nu ar fi prins viață niciodată. Aici găsiți muzică originală în limba română, spaniolă și engleză, de la balade romantice și piese emoționale până la melodii energice și instrumentale. Muzică perfectă pentru mașină. 🚗 🎵",
                 social_listen: "Ascultă Acum",
                 social_subscribe: "Abonează-te",
                 social_follow: "Urmărește-mă",
-                app_hero_title: "Studioul Milord",
-                app_hero_sub: "Studioul tău de buzunar. Editează piese, ajustează stem-uri, aplică filtre de studio și exportă audio de înaltă fidelitate.",
+                open_youtube: "Vezi direct pe YouTube",
+                app_hero_title: "studioul milord",
+                app_hero_sub: "Milord Audio Studio este un editor de muzică mobil puternic pentru creatori. Mixează mai multe piese, taie și duplică audio, înregistrează voci, ajustează tempo-ul și efectele și exportă fișiere MP3 sau WAV de înaltă calitate—totul direct de pe telefonul tău.",
+                app_preview_title: "Previzualizare Interfață",
                 tier_monthly_title: "Abonament Lunar",
                 unit_monthly: "/ lună",
                 tier_yearly_title: "Abonament Anual",
@@ -676,11 +881,18 @@
                 panel_spotify: "Discografía Oficial",
                 panel_youtube: "Últimos Videos Musicales",
                 panel_connect: "Ver mis redes sociales",
+                panel_about: "Sobre milord",
+                panel_contact: "Contacto y Colaboración",
+                contact_desc: "Para soporte, colaboraciones, consultas comerciales o simplemente para saludar, escríbeme directamente a:",
+                contact_email_label: "Email Oficial",
+                about_text: "Mis canciones originales, escritas, compuestas y creadas por mí. Las letras y las melodías son mías, hechas realidad con la ayuda de la IA. Perfectas para conducir y subir el volumen. 🎵",
                 social_listen: "Escuchar Ahora",
                 social_subscribe: "Suscribirse",
                 social_follow: "Seguir",
-                app_hero_title: "El Estudio Milord",
-                app_hero_sub: "Tu estudio de bolsillo. Edita pistas, ajusta canales individuales, aplica filtros de estudio y exportar audio de alta fidelidad.",
+                open_youtube: "Ver directamente en YouTube",
+                app_hero_title: "el estudio milord",
+                app_hero_sub: "Milord Audio Studio es un potente editor de música móvil para creadores. Mezcla múltiples pistas, corta y duplica audio, graba voces, ajusta el tempo y los efectos, y exporta archivos MP3 o WAV de alta calidad, todo directamente desde tu teléfono.",
+                app_preview_title: "Vista Previa de Interfaz",
                 tier_monthly_title: "Pase Mensual",
                 unit_monthly: "/ mes",
                 tier_yearly_title: "Pase Anual",
@@ -719,13 +931,14 @@
             }
         }
 
-        function loadVideo(container, videoId) {
-            container.innerHTML = `
-                <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        referrerpolicy="strict-origin-when-cross-origin" 
-                        allowfullscreen>
-                </iframe>`;
+        function handleImageError(img, num) {
+            if (img.src.includes('.png')) {
+                img.src = num + '.jpg';
+            } else if (img.src.includes('.jpg')) {
+                img.src = num + '.jpeg';
+            } else {
+                img.style.display = 'none';
+            }
         }
     </script>
 </body>
