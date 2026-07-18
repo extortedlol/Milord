@@ -202,7 +202,6 @@
             font-weight: 400;
         }
 
-        /* Contact Details Card */
         .contact-box {
             display: flex;
             align-items: center;
@@ -631,7 +630,7 @@
                     </p>
                 </div>
 
-                <!-- Sectiunea Contact Dedicata (Highlight) -->
+                <!-- Sectiunea Contact & Collabs -->
                 <div class="panel panel-highlight">
                     <h2 data-i18n="panel_contact">Contact & Collabs</h2>
                     <p class="about-para" data-i18n="contact_desc">
@@ -766,16 +765,16 @@
             <h2 data-i18n="app_preview_title">Interface Preview</h2>
             <div class="wa-gallery">
                 <div class="wa-gallery-item">
-                    <img src="1.png" alt="Preview 1" onerror="handleImageError(this, 1)">
+                    <img class="fallback-img" data-num="1" src="1.jpg" alt="Preview 1" onerror="handleImageError(this)">
                 </div>
                 <div class="wa-gallery-item">
-                    <img src="2.png" alt="Preview 2" onerror="handleImageError(this, 2)">
+                    <img class="fallback-img" data-num="2" src="2.jpg" alt="Preview 2" onerror="handleImageError(this)">
                 </div>
                 <div class="wa-gallery-item">
-                    <img src="3.png" alt="Preview 3" onerror="handleImageError(this, 3)">
+                    <img class="fallback-img" data-num="3" src="3.jpg" alt="Preview 3" onerror="handleImageError(this)">
                 </div>
                 <div class="wa-gallery-item">
-                    <img src="4.png" alt="Preview 4" onerror="handleImageError(this, 4)">
+                    <img class="fallback-img" data-num="4" src="4.jpg" alt="Preview 4" onerror="handleImageError(this)">
                 </div>
             </div>
         </section>
@@ -931,13 +930,33 @@
             }
         }
 
-        function handleImageError(img, num) {
-            if (img.src.includes('.png')) {
-                img.src = num + '.jpg';
-            } else if (img.src.includes('.jpg')) {
-                img.src = num + '.jpeg';
+        // Matricea de formate imagini pentru incarcare flexibila (suporta orice redenumire automata pe GitHub)
+        const formatMatrix = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'JPG', 'JPEG', 'PNG', 'WEBP', 'GIF'];
+
+        function handleImageError(img) {
+            const num = img.getAttribute('data-num');
+            if (img.dataset.matrixIndex === undefined) {
+                img.dataset.matrixIndex = 0;
             } else {
+                img.dataset.matrixIndex = parseInt(img.dataset.matrixIndex) + 1;
+            }
+
+            const currentIdx = parseInt(img.dataset.matrixIndex);
+            if (currentIdx < formatMatrix.length) {
+                img.src = num + '.' + formatMatrix[currentIdx];
+            } else {
+                // In caz de eroare totala, afisam un element vizual de tip placeholder
                 img.style.display = 'none';
+                const parent = img.parentNode;
+                parent.innerHTML = `
+                    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--text-secondary); font-size:11px; gap:6px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                        <span>preview ${num}</span>
+                    </div>`;
             }
         }
     </script>
